@@ -35,3 +35,5 @@
 
 sometimes results in a container restart
 => does log.Errorf("error on opening /dev/null: %s", err) at least give info why?
+
+try ginkgo test framework <https://onsi.github.io/ginkgo/#writing-specs>
