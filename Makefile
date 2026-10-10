@@ -77,9 +77,9 @@ kind-start:
 .PHONY: run-at-kind
 run-at-kind:
 	kubectl apply -f kind/gateway.yaml
+	helmfile -f kind/helmfile.yaml sync
 	kubectl get gateway -A
-	helm upgrade --install my-app ./helm-chart --set gateway.enabled=true --set gateway.namespace=gateway --wait 
-	kubectl get gateway -A
+	kubectl get gateway my-gateway -n gateway -o jsonpath='Please open http://{.status.addresses[0].value}'
 
 .PHONY: kind-delete
 kind-delete:

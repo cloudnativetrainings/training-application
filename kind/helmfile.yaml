@@ -1,0 +1,12 @@
+helmDefaults:
+  kubeContext: kind-training
+  wait: true
+  atomic: true
+  timeout: 300
+
+releases:
+  - name: my-app
+    namespace: default
+    chart: ../helm-chart
+    values:
+      - training-application.values.yaml

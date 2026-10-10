@@ -1,0 +1,24 @@
+name: my-app
+version: v1
+image:
+  name: quay.io/kubermatic-labs/training-application
+  tag: 4.0.0
+color: white
+message: "Doing stuff localy"
+catMode: true
+persistMetaInfo: false
+
+deployment:
+  replicas: 1
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: false
+
+gateway:
+  enabled: true
+  name: my-gateway
+  namespace: gateway
+  hostnames: []
