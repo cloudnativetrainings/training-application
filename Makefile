@@ -4,7 +4,7 @@ BUILD_VERSION = 4.0.0
 BUILD_VERSION_A = ${BUILD_VERSION}-A
 BUILD_VERSION_B = ${BUILD_VERSION}-B
 BUILD_VERSION_DISTROLESS = ${BUILD_VERSION}-distroless
-HELM_CHART_VERSION = 1.0.1
+HELM_CHART_VERSION = 1.0.2
 
 .PHONY: update-dependencies
 update-dependencies: 
@@ -66,3 +66,21 @@ helm-push:
 	helm package ./helm-chart --version ${HELM_CHART_VERSION}
 	helm push --debug training-application-${HELM_CHART_VERSION}.tgz oci://quay.io/kubermatic-labs/helm-charts/
 
+# run everything locally via kind
+
+.PHONY: kind-start
+kind-start:
+	# docker-desktop
+	kind create cluster --config kind/cluster.yaml
+	sudo cloud-provider-kind
+
+.PHONY: run-at-kind
+run-at-kind:
+	kubectl apply -f kind/gateway.yaml
+	kubectl get gateway -A
+	helm upgrade --install my-app ./helm-chart --set gateway.enabled=true --set gateway.namespace=gateway --wait 
+	kubectl get gateway -A
+
+.PHONY: kind-delete
+kind-delete:
+	kind delete cluster --name training

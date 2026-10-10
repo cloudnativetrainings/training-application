@@ -4,7 +4,6 @@ kind: PersistentVolumeClaim
 metadata:
   name: training-application-pvc
 spec:
-  storageClassName: my-storageclass
   accessModes:
     - ReadWriteOnce
   resources:

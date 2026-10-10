@@ -17,3 +17,9 @@ service:
 ingress:
   enabled: false
   domain: example.com
+
+gateway:
+  enabled: false
+  name: my-gateway
+  namespace: gateway
+  hostnames: []
